@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "0C2oP16SHRQ=",
+  "success": true,
+  "projectFilePath": "/home/amir/RiderProjects/MinecraftServer/MinecraftServer/MinecraftServer.csproj",
+  "expectedPackageFiles": [
+    "/home/amir/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.10/microsoft.aspnetcore.app.ref.8.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}

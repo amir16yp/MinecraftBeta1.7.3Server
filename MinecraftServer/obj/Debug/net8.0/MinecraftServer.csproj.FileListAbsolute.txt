@@ -1,0 +1,14 @@
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/obj/Debug/net8.0/MinecraftServer.GeneratedMSBuildEditorConfig.editorconfig
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/obj/Debug/net8.0/MinecraftServer.AssemblyInfoInputs.cache
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/obj/Debug/net8.0/MinecraftServer.AssemblyInfo.cs
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/obj/Debug/net8.0/MinecraftServer.csproj.CoreCompileInputs.cache
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/bin/Debug/net8.0/MinecraftServer
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/bin/Debug/net8.0/MinecraftServer.deps.json
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/bin/Debug/net8.0/MinecraftServer.runtimeconfig.json
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/bin/Debug/net8.0/MinecraftServer.dll
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/bin/Debug/net8.0/MinecraftServer.pdb
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/obj/Debug/net8.0/MinecraftServer.dll
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/obj/Debug/net8.0/refint/MinecraftServer.dll
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/obj/Debug/net8.0/MinecraftServer.pdb
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/obj/Debug/net8.0/MinecraftServer.genruntimeconfig.cache
+/home/amir/RiderProjects/MinecraftServer/MinecraftServer/obj/Debug/net8.0/ref/MinecraftServer.dll

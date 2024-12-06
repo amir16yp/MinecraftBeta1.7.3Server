@@ -1,0 +1,44 @@
+public class ChunkManager
+{
+    private Dictionary<(int x, int z), MapChunkPacket> loadedChunks = new();
+    private ChunkGenerator chunkGenerator = new();
+    
+    public void SendAllChunksToPlayer(ClientHandler clientHandler)
+    {
+        foreach (var chunkEntry in loadedChunks.Values)
+        {
+            // Notify the client to load the chunk (Mode = 1 for initialization)
+            clientHandler.SendPacket(new PreChunkPacket(chunkEntry.XPosition, chunkEntry.ZPosition, true)); // Mode = true for initialization (1)
+
+            clientHandler.SendPacket(chunkEntry); // Assuming chunkEntry is a MapChunkPacket containing the chunk data
+        }
+    }
+    
+    public void LoadSpawnChunks(int centerX, int centerZ)
+    {
+        for (int x = centerX - 1; x <= centerX + 1; x++)
+        {
+            for (int z = centerZ - 1; z <= centerZ + 1; z++)
+            {
+                if (!loadedChunks.ContainsKey((x, z)))
+                {
+                    byte[] chunkData = chunkGenerator.GenerateFlatChunk(); // Replace with your actual chunk generation logic
+                    loadedChunks[(x, z)] = new MapChunkPacket(x, 0, z, chunkData); // yPosition set to 0
+                }
+            }
+        }
+    }
+
+    public MapChunkPacket GetChunk(int x, int z)
+    {
+        return loadedChunks.TryGetValue((x, z), out var chunk) ? chunk : null;
+    }
+    
+    public void UnloadChunk(int x, int z)
+    {
+        if (loadedChunks.ContainsKey((x, z)))
+        {
+            loadedChunks.Remove((x, z));
+        }
+    }
+}
