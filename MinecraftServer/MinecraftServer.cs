@@ -1,3 +1,5 @@
+namespace MinecraftServer;
+
 using System;
 using System.Collections.Concurrent;
 using System.Net;
@@ -77,7 +79,7 @@ public class MinecraftServer
         catch { }
     }
 
-    public void BroadcastPacket(Packet packet)
+    public static void BroadcastPacket(Packet packet)
     {
         foreach (var client in _connectedClients.Values)
         {

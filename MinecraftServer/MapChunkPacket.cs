@@ -33,13 +33,17 @@ public class MapChunkPacket : Packet
     // Override Write method from Packet class
     public override void Write(BinaryWriter writer)
     {
-        base.Write(writer); // Calls the base Write method to write the packet type
-        WriteInt(writer, this.XPosition);
+        base.Write(writer);
+        // X,Y,Z should be block coordinates, not chunk coordinates
+        WriteInt(writer, this.XPosition * 16);  // Convert chunk coords to block coords
         WriteShort(writer, (short)this.YPosition);
-        WriteInt(writer, this.ZPosition);
-        WriteByte(writer, (byte)(this.XSize - 1));
-        WriteByte(writer, (byte)(this.YSize - 1));
-        WriteByte(writer, (byte)(this.ZSize - 1));
+        WriteInt(writer, this.ZPosition * 16);
+    
+        // Size values must be size-1 per protocol
+        WriteByte(writer, (byte)(this.XSize - 1)); // 15 for full chunk
+        WriteByte(writer, (byte)(this.YSize - 1)); // 127 for full chunk  
+        WriteByte(writer, (byte)(this.ZSize - 1)); // 15 for full chunk
+    
         WriteInt(writer, this.chunkSize);
         writer.Write(this.Chunk);
     }

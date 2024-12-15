@@ -21,19 +21,19 @@ public class PlayerPositionPacket : Packet
     public override void Write(BinaryWriter writer)
     {
         base.Write(writer);
-        writer.Write(X);
-        writer.Write(Y);
-        writer.Write(Stance);
-        writer.Write(Z);
-        writer.Write(OnGround);
+        WriteDouble(writer, X);
+        WriteDouble(writer, Y);
+        WriteDouble(writer, Stance);
+        WriteDouble(writer, Z);
+        WriteBool(writer, OnGround);
     }
 
     public override void Read(BinaryReader reader)
     {
-        X = reader.ReadDouble();
-        Y = reader.ReadDouble();
-        Stance = reader.ReadDouble();
-        Z = reader.ReadDouble();
-        OnGround = reader.ReadBoolean();
+        X = ReadDouble(reader);
+        Y = ReadDouble(reader);
+        Stance = ReadDouble(reader);
+        Z = ReadDouble(reader);
+        OnGround = ReadBool(reader);
     }
 }

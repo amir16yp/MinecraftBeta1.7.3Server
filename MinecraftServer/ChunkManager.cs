@@ -1,6 +1,8 @@
+namespace MinecraftServer;
+
 public class ChunkManager
 {
-    private Dictionary<(int x, int z), MapChunkPacket> loadedChunks = new();
+    public Dictionary<(int x, int z), MapChunkPacket> loadedChunks = new();
     private ChunkGenerator chunkGenerator = new();
     
     public void SendAllChunksToPlayer(ClientHandler clientHandler)
@@ -16,19 +18,22 @@ public class ChunkManager
     
     public void LoadSpawnChunks(int centerX, int centerZ)
     {
+        // Generate chunks for a 3x3 grid centered around the player's position
         for (int x = centerX - 1; x <= centerX + 1; x++)
         {
             for (int z = centerZ - 1; z <= centerZ + 1; z++)
             {
                 if (!loadedChunks.ContainsKey((x, z)))
                 {
-                    byte[] chunkData = chunkGenerator.GenerateFlatChunk(); // Replace with your actual chunk generation logic
+                    // Generate a flat chunk for the given coordinates
+                    byte[] chunkData = chunkGenerator.GenerateFlatChunk();
                     loadedChunks[(x, z)] = new MapChunkPacket(x, 0, z, chunkData); // yPosition set to 0
                 }
             }
         }
     }
-
+    
+    
     public MapChunkPacket GetChunk(int x, int z)
     {
         return loadedChunks.TryGetValue((x, z), out var chunk) ? chunk : null;

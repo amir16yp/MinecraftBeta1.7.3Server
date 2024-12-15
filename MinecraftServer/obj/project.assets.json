@@ -8,20 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "/home/amir/.nuget/packages/": {}
+    "/home/chuck/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/amir/RiderProjects/MinecraftServer/MinecraftServer/MinecraftServer.csproj",
+      "projectUniqueName": "/home/chuck/RiderProjects/MinecraftBeta1.7.3Server/MinecraftServer/MinecraftServer.csproj",
       "projectName": "MinecraftServer",
-      "projectPath": "/home/amir/RiderProjects/MinecraftServer/MinecraftServer/MinecraftServer.csproj",
-      "packagesPath": "/home/amir/.nuget/packages/",
-      "outputPath": "/home/amir/RiderProjects/MinecraftServer/MinecraftServer/obj/",
+      "projectPath": "/home/chuck/RiderProjects/MinecraftBeta1.7.3Server/MinecraftServer/MinecraftServer.csproj",
+      "packagesPath": "/home/chuck/.nuget/packages/",
+      "outputPath": "/home/chuck/RiderProjects/MinecraftBeta1.7.3Server/MinecraftServer/obj/",
       "projectStyle": "PackageReference",
-      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
-        "/home/amir/.nuget/NuGet/NuGet.Config"
+        "/home/chuck/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -39,6 +38,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -55,18 +59,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.10, 8.0.10]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/home/chuck/.dotnet/sdk/8.0.404/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
