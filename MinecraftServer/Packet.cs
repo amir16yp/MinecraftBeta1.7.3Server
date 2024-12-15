@@ -103,6 +103,18 @@ public abstract class Packet
         writer.Write(bytes, 0, 4);
     }
 
+      // SByte methods (signed byte)
+        protected static sbyte ReadSByte(BinaryReader reader)
+        {
+            return (sbyte)reader.ReadByte();
+        }
+    
+        protected static void WriteSByte(BinaryWriter writer, sbyte value)
+        {
+            writer.Write((byte)value);
+        }
+
+    
     // Double methods (8 bytes, big-endian)
     protected static double ReadDouble(BinaryReader reader)
     {

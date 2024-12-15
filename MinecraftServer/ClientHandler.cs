@@ -81,6 +81,32 @@ public class ClientHandler
             }
         }
     }
+    
+    public void SpawnOtherPlayerAsNamedEntity(int entityId, string playerName, int x, int y, int z, byte yaw, byte pitch, short currentItem)
+    {
+        // Ensure the entity ID and username are not the client's own
+        if (entityId == _entityId || playerName == _username)
+        {
+            Console.WriteLine($"Skipping spawn for own EID or username: {playerName} (EID: {entityId})");
+            return;
+        }
+
+        // Create the Named Entity Spawn packet
+        var namedEntitySpawnPacket = new NamedEntitySpawnPacket
+        {
+            EntityId = entityId,
+            PlayerName = playerName,
+            X = x,
+            Y = y,
+            Z = z,
+            Yaw = yaw,
+            Pitch = pitch,
+            CurrentItem = currentItem
+        };
+
+        // Send the packet to the client
+        SendPacket(namedEntitySpawnPacket);
+    }
 
     private async Task HandleClientAsync()
     {
@@ -202,6 +228,50 @@ public class ClientHandler
             SendPacket(new TimeUpdatePacket(0));
             SendPacket(new UpdateHealthPacket(20));
 
+            foreach (var client in MinecraftServer._connectedClients.Values)
+            {
+                if (client._clientId != _clientId) // Skip the current client
+                {
+                    // Check if the other player is within visible range
+                    if (IsWithinVisibleRange(client._x, client._z, _x, _z))
+                    {
+                        client.SpawnOtherPlayerAsNamedEntity(
+                            _entityId, // Entity ID of the new player
+                            _username, // Username of the new player
+                            (int)_x,   // X position
+                            (int)_y,   // Y position
+                            (int)_z,   // Z position
+                            0,         // Yaw (rotation)
+                            0,         // Pitch (rotation)
+                            0          // Current item (0 for no item)
+                        );
+                    }
+                }
+            }
+
+            // Also, spawn all other players for the new player
+            foreach (var client in MinecraftServer._connectedClients.Values)
+            {
+                if (client._clientId != _clientId) // Skip the current client
+                {
+                    // Check if the new player is within visible range of the other player
+                    if (IsWithinVisibleRange(_x, _z, client._x, client._z))
+                    {
+                        SpawnOtherPlayerAsNamedEntity(
+                            client._entityId, // Entity ID of the other player
+                            client._username, // Username of the other player
+                            (int)client._x,   // X position
+                            (int)client._y,   // Y position
+                            (int)client._z,   // Z position
+                            0,                // Yaw (rotation)
+                            0,                // Pitch (rotation)
+                            0                 // Current item (0 for no item)
+                        );
+                    }
+                }
+            }
+
+            
             // Send initial position - THIS IS THE CRITICAL ADDITION
             SendPacket(new PlayerPositionAndLookPacket(
                 _x,        // x
@@ -224,35 +294,47 @@ public class ClientHandler
         }
     }
 
+    private bool IsWithinVisibleRange(double x1, double z1, double x2, double z2)
+    {
+        // Define the visible range (e.g., 16 blocks)
+        const double visibleRange = 16.0 * 12;
+
+        // Calculate the distance between the two players
+        double distance = Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(z1 - z2, 2));
+
+        // Return true if the distance is within the visible range
+        return distance <= visibleRange;
+    }
+
     private void HandlePlayerPositionAndLook(PlayerPositionAndLookPacket posLookPacket)
     {
         // Validate the position
         if (!ValidatePosition(posLookPacket.X, posLookPacket.Y, posLookPacket.Z, posLookPacket.Stance))
         {
-            // If stance is invalid, resend the initial position with the correct stance
-            var forcedPosition = new PlayerPositionAndLookPacket(
-                _x,        // x
-                _stance,   // stance (Y + 1.62)
-                _y,        // y
-                _z,        // z
-                _yaw,
-                _pitch,
-                true       // onGround
-            );
-            SendPacket(forcedPosition);
-            Console.WriteLine($"Resent initial position - Y: {_y:F2}, Stance: {_stance:F2}, Height: {_stance - _y:F2}");
             return;
         }
 
-        // Update player position
+        // Update the client's position
         UpdatePlayerPosition(posLookPacket.X, posLookPacket.Y, posLookPacket.Z, posLookPacket.Stance, true);
         this._yaw = posLookPacket.Yaw;
         this._pitch = posLookPacket.Pitch;
 
-        // Load chunks around the player
-        //MinecraftServer.chunkManager.LoadChunksAroundPlayer(this);
+        // Check if the player has moved out of visible range of any other player
+        foreach (var client in MinecraftServer._connectedClients.Values)
+        {
+            if (client._clientId != _clientId) // Skip the current client
+            {
+                if (!IsWithinVisibleRange(_x, _z, client._x, client._z))
+                {
+                    // Send a Destroy Entity packet to the other player
+                    client.SendPacket(new DestroyEntityPacket
+                    {
+                        EntityId = _entityId // Entity ID of the moving player
+                    });
+                }
+            }
+        }
     }
-
     private void HandlePlayerPosition(PlayerPositionPacket posPacket)
     {
         if (!_hasLoggedIn || !_initialPositionSent) return;

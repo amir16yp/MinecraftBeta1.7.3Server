@@ -18,7 +18,6 @@ public class ChunkManager
     
     public void LoadSpawnChunks(int centerX, int centerZ)
     {
-        // Generate chunks for a 3x3 grid centered around the player's position
         for (int x = centerX - 1; x <= centerX + 1; x++)
         {
             for (int z = centerZ - 1; z <= centerZ + 1; z++)
