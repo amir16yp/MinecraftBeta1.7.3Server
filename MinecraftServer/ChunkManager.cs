@@ -18,7 +18,7 @@ public class ChunkManager
     
     public void LoadSpawnChunks(int centerX, int centerZ)
     {
-        for (int x = centerX - 1; x <= centerX + 1; x++)
+            for (int x = centerX - 1; x <= centerX + 1; x++)
         {
             for (int z = centerZ - 1; z <= centerZ + 1; z++)
             {

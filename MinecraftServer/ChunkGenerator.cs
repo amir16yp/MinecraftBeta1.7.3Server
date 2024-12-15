@@ -59,7 +59,7 @@ public byte[] GenerateFlatChunk(int groundLevel = 60)
     combinedData.AddRange(blockLight);     // Block light array (nibbles)
     combinedData.AddRange(skyLight);       // Sky light array (nibbles)
 
-    return Compress(combinedData.ToArray());
+    return combinedData.ToArray();
 }    public static byte[] Compress(byte[] input)
     {
         if (input == null || input.Length == 0)

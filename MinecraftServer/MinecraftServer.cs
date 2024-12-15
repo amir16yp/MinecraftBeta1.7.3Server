@@ -94,7 +94,7 @@ public class MinecraftServer
         
         foreach (var client in _connectedClients.Values)
         {
-            client.Disconnect();
+            client.DisconnectAsync().Start();
         }
         
         _connectedClients.Clear();

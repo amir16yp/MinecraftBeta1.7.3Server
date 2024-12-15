@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MinecraftServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3e63857264a5cdeac51172a1d2f138dfa6356bfd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+910424454ff1472c36159d00ad74a5202ed1bc92")]
 [assembly: System.Reflection.AssemblyProductAttribute("MinecraftServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MinecraftServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
